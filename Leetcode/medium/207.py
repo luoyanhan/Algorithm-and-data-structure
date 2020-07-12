@@ -1,23 +1,23 @@
-# class Solution:
-#     def canFinish(self, numCourses: int, prerequisites):
-#         input_dict = {node: 0 for node in range(numCourses)}
-#         output_dict = {node: [] for node in range(numCourses)}
-#         for end, start in prerequisites:
-#             input_dict[end] += 1
-#             output_dict[start].append(end)
-#         q = list()
-#         for node in input_dict:
-#             if input_dict[node] == 0:
-#                 q.append(node)
-#         while q:
-#             top = q.pop(0)
-#             for each in output_dict[top]:
-#                 input_dict[each] -= 1
-#                 if input_dict[each] == 0:
-#                     q.append(each)
-#         return not max(input_dict.values())
+class Solution:  #bfs
+    def canFinish(self, numCourses: int, prerequisites):
+        input_dict = {node: 0 for node in range(numCourses)}
+        output_dict = {node: [] for node in range(numCourses)}
+        for end, start in prerequisites:
+            input_dict[end] += 1
+            output_dict[start].append(end)
+        q = list()
+        for node in input_dict:
+            if input_dict[node] == 0:
+                q.append(node)
+        while q:
+            top = q.pop(0)
+            for each in output_dict[top]:
+                input_dict[each] -= 1
+                if input_dict[each] == 0:
+                    q.append(each)
+        return not max(input_dict.values())
 
-class Solution:
+class Solution_dfs:  #dfs
     def canFinish(self, numCourses: int, prerequisites):
         output_dict = {node: [] for node in range(numCourses)}
         tag_list = [0] * numCourses
