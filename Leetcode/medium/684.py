@@ -19,26 +19,27 @@ class Solution:
             if not union(start, end):
                 return [start, end]
 
-# class Solution:
-#     def findRedundantConnection(self, edges): #dfs
-#         graph = {node: [] for node in range(1, len(edges)+1)}
-#         for start, end in edges:
-#             graph[start].append(end)
-#             graph[end].append(start)
-#         visited = [False] * len(edges)
-#
-#         def dfs(node, visited, pre, graph):
-#             if visited[node]:
-#                 return False
-#             for each in graph[node]:
-#                 if each != pre:
-#                     if not dfs(each, visited, node, graph):
-#                         return False
-#             return True
-#
-#
-#
-#
-# print(Solution().findRedundantConnection([[1,2],[1,3],[2,3]]))
+class Solution:
+    def findRedundantConnection(self, edges): #dfs
+        def dfs(node, visited, pre, graph):
+            if visited[node]:
+                return False
+            visited[node] = True
+            for each in graph[node]:
+                if each != pre:
+                    if not dfs(each, visited, node, graph):
+                        return False
+            return True
+
+        graph = {node: [] for node in range(1, len(edges)+1)}
+        for start, end in edges:
+            graph[start].append(end)
+            graph[end].append(start)
+            visited = [False] * (len(edges)+1)
+            if not dfs(start, visited, -1, graph):
+                return [start, end]
+
+
+
 
 
