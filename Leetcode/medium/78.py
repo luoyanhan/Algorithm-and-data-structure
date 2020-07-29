@@ -16,6 +16,17 @@ class Solution:
         return res
 
 
+class Solution:
+    def subsets(self, nums):
+        n = len(nums)
+        res = list()
+        n_bit = 1 << n
+        for i in range(2**n):
+            bitmask = bin(i | n_bit)[3:]
+            res.append([nums[j] for j in range(n) if bitmask[j] == '1'])
+        return res
+
+
 
 
 print(Solution().subsets([1,2,3]))
