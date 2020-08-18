@@ -25,7 +25,7 @@ class Solution:
             root = TreeNode(pre[l0])
             if N == 1:
                 return root
-            L = 0
+            L = 1
             while L < N:
                 if pre[l0+1] == post[l1-1+L]:
                     break
