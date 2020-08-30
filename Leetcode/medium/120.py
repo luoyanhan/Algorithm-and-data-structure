@@ -14,7 +14,7 @@ class Solution:
                     dp[i][j] = min(dp[i-1][j], dp[i-1][j-1]) + triangle[i][j]
         return min(dp[-1])
 
-class Solution:
+class Solution:  # 节省空间 O(n)
     def minimumTotal(self, triangle):
         depth, max_width = len(triangle), len(triangle[-1])
         floor = [0] * max_width
