@@ -44,5 +44,25 @@ class Solution:
         return [d[depth] for depth in range(max_depth+1)]
 
 
+class Solution:
+    def rightSideView(self, root: TreeNode):
+        if not root:
+            return list()
+        d = dict()
+        stack = [(root, 0)]
+        max_depth = -1
+        while stack:
+            node, depth = stack.pop(0)
+            if depth > max_depth:
+                max_depth = depth
+            d[depth] = node.val
+            if node.left:
+                stack.append((node.left, depth+1))
+            if node.right:
+                stack.append((node.right, depth+1))
+        return [d[k] for k in range(max_depth+1)]
+
+
+
 
 
