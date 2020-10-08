@@ -30,3 +30,44 @@ class Solution:
                     break
                 dp[i] = min(dp[i], dp[i-num] + 1)
         return dp[-1]
+
+
+class Solution:
+    #贪心
+    def numSquares(self, n: int) -> int:
+        import math
+        nums = [num**2 for num in range(int(math.sqrt(n))+1)]
+        def is_divided(num, cnt):
+            if cnt == 1:
+                return num in nums
+            for each in nums:
+                if each > num:
+                    break
+                if is_divided(num-each, cnt-1):
+                    return True
+            return False
+        for cnt in range(1, n+1):
+            if is_divided(n, cnt):
+                return cnt
+
+
+class Solution:
+    #贪心+bfs
+    def numSquares(self, n: int) -> int:
+        import math
+        nums = [num**2 for num in range(int(math.sqrt(n))+1)]
+        q = {n}
+        depth = 0
+        while q:
+            next_q = set()
+            depth += 1
+            for each in q:
+                for num in nums:
+                    if each == num:
+                        return depth
+                    elif num > each:
+                        break
+                    else:
+                        next_q.add(each - num)
+            q = next_q
+        return depth
