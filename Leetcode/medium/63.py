@@ -1,0 +1,33 @@
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        dp = [[0]*n for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if obstacleGrid[i][j] == 0:
+                    if i == j == 0:
+                        dp[i][j] = 1
+                    else:
+                        top = dp[i-1][j] if i > 0 else 0
+                        left = dp[i][j-1] if j > 0 else 0
+                        dp[i][j] = top + left
+        return dp[m-1][n-1]
+
+
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid) -> int:
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        dp = [0]*n
+        dp[0] = 1
+        for i in range(m):
+            for j in range(n):
+                if obstacleGrid[i][j] == 1:
+                    dp[j] = 0
+                    continue
+                if j > 0:
+                    dp[j] += dp[j-1]
+        return dp[-1]
+
+Solution().uniquePathsWithObstacles([[0,0]])
