@@ -35,10 +35,27 @@ class Solution:
     def minSubArrayLen(self, s: int, nums) -> int:
         length = len(nums)
         min_length = float('inf')
-        for i in range(1, length):
-            nums[i] += nums[i-1]
-        left = 0
-        right = length - 1
-        while right >= left:
-            mid = (left + right)//2
+        pre_sum = [0]
+        for i in range(length):
+            pre_sum.append(pre_sum[-1] + nums[i])
+        def binary(left, right, target):
+            while left < right:
+                mid = (left+right) // 2
+                if target > pre_sum[mid]:
+                    left = mid + 1
+                else:
+                    right = mid
+            return left if pre_sum[left] >= target else -1
+        for i in range(length+1):
+            target = s + pre_sum[i]
+            left = i
+            right = length
+            res = binary(left, right, target)
+            if res == -1:
+                continue
+            min_length = min(min_length, res-i)
         return min_length if min_length < float('inf') else 0
+
+
+print(Solution().minSubArrayLen(15, [1,2,3,4,5]))
+
