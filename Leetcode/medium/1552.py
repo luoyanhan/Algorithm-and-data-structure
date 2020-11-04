@@ -11,12 +11,10 @@ class Solution:
             return cnt >= m
         left = 1
         right = position[-1] - position[0]
-        ans = -1
         while left <= right:
             mid = (left+right) // 2
             if check(mid):
-                ans = mid
                 left = mid + 1
             else:
                 right = mid - 1
-        return ans
+        return left - 1     #left 是新的最小边界，因此left-1是必定可以的
