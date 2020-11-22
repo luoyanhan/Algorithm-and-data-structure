@@ -8,12 +8,12 @@ class Solution:
     def sortList(self, head):
         if not head or not head.next:
             return head
-        slow, fast = head, head.next
+        slow, fast = head, head.next  #前后要差一位，否则会死循环
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
         mid = slow.next
-        slow.next = None
+        slow.next = None #要记得断开
         left = self.sortList(head)
         right = self.sortList(mid)
         res = ListNode()
@@ -78,7 +78,7 @@ class Solution:
                     while len_right > 0:
                         len_right -= 1
                         pre = pre.next
-                pre.next = h
+                pre.next = h    #记得重回正轨
             step *= 2
         return res.next
 
