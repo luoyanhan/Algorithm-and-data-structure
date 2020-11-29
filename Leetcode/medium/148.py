@@ -82,3 +82,39 @@ class Solution:
             step *= 2
         return res.next
 
+# 快速排序
+class Solution:
+    def sortList(self, head):
+        def partion(start, end):
+            move = start.next.next
+            pre = start.next
+            post = start.next
+            pre.next = end
+            while move != end:
+                tmp = move.next
+                if move.val > pre.val:
+                    move.next = post.next
+                    post.next = move
+                elif move.val < pre.val:
+                    move.next = start.next
+                    start.next = move
+                else:
+                    move.next = post.next
+                    post.next = move
+                    post = post.next
+                move = tmp
+            return pre, post
+
+        def quick_sort(start, end):
+            if start.next != end:
+                pre, post = partion(start, end)
+                quick_sort(start, pre)
+                quick_sort(post, end)
+        newhead = ListNode()
+        newhead.next = head
+        quick_sort(newhead, None)
+        return newhead.next
+
+
+
+
