@@ -32,4 +32,35 @@ class Solution:
         return res
 
 
+class Solution:
+    def accountsMerge(self, accounts):
+        from collections import defaultdict
+        graph = defaultdict(set)
+        email_to_name = dict()
+        for account in accounts:
+            for i in range(1, len(account)):
+                email_to_name[account[i]] = account[0]
+                graph[account[1]].add(account[i])
+                graph[account[i]].add(account[1])
+
+        visited = set()
+        res = list()
+        for email in graph:
+            if email not in visited:
+                visited.add(email)
+                stack = [email]
+                component = [email]
+                while stack:
+                    e = stack.pop()
+                    for each in graph[e]:
+                        if each not in visited:
+                            visited.add(each)
+                            component.append(each)
+                            stack.append(each)
+                component.sort()
+                res.append([email_to_name[component[0]]] + component)
+        return res
+
+
+
 
