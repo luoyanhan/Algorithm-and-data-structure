@@ -21,6 +21,15 @@ class Solution:  #超出时间限制
         return res
 
 
+class Solution:  #动态规划
+    def minFallingPathSum(self, A):
+        length = len(A[0])
+        while len(A) > 1:
+            last_row = A.pop()
+            for idx in range(length):
+                A[-1][idx] += min(last_row[max(0, idx-1): min(length, idx+2)])
+        return min(A[-1])
+
 
 
 print(Solution().minFallingPathSum([[1,2,3],[4,5,6],[7,8,9]]))
