@@ -11,14 +11,7 @@ class Solution:
             else:
                 offset_x = x - old_x
                 offset_y = y - old_y
-                if offset_x < 0:
-                    res += 'U'*abs(offset_x)
-                else:
-                    res += 'D'*abs(offset_x)
-                if offset_y < 0:
-                    res += 'L'*abs(offset_y)
-                else:
-                    res += 'R'*abs(offset_y)
+                res += 'U'*(-offset_x) + 'D'*offset_x + 'L'*(-offset_y) + 'R'*offset_y
             old_x = x
             old_y = y
             res += '!'
