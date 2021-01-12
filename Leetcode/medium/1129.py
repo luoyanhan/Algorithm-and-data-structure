@@ -10,29 +10,38 @@ class Solution:
             red_map[start].append(end)
         for start, end in blue_edges:
             blue_map[start].append(end)
+        print(red_map, blue_map)
         for target in range(1, n):
-            res.append(-1)
-            path = [0]
-            def dfs(target, pre, red):
-                if (red and target in red_map[pre]) or (
-                        not red and target in blue_map[pre]):
-                    res[target] = min(res[target], len(path))
-                elif red and target not in red_map[pre]:
-                    for cur in red_map[pre]:
-                        path.append(cur)
-                        dfs(target, cur, not red)
-                elif not red and target not in blue_map[pre]:
-                    for cur in blue_map[pre]:
-                        path.append(cur)
-                        dfs(target, cur, not red)
-                path.pop()
-            dfs(target, 0, 1)
-            dfs(target, 0, 0)
+            depth = 0
+            find_tag = False
+            q = [-1] + [0]
+            red = True
+            while q:
+                if depth >= n:
+                    break
+                head = q.pop(0)
+                if head == -1:
+                    if not q:
+                        break
+                    q.append(-1)
+                    depth += 1
+                    continue
+                if not red:
+                    next_li = blue_map[head]
+                else:
+                    next_li = red_map[head]
+                red = not red
+                if target in next_li:
+                    find_tag = True
+                    break
+                else:
+                    q += next_li
+            res.append(depth) if find_tag else res.append(-1)
         return res
 
 
 
 
-print(Solution().shortestAlternatingPaths())
+print(Solution().shortestAlternatingPaths(5, [[0,1],[1,2],[2,3],[3,4]], [[1,2],[2,3],[3,1]]))
 
 
