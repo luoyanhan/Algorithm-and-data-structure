@@ -36,7 +36,7 @@ class Solution:
         while q:
             next_pro, next_point = heapq.heappop(q)
             next_pro = -next_pro
-            if next_pro > dist[next_point]:
+            if next_pro >= dist[next_point]:
                 for each_point in map[next_point]:
                     pro_next_to_each = map[next_point][each_point]
                     each_pro = pro_next_to_each*next_pro
