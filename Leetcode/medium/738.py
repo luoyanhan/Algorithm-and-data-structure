@@ -13,7 +13,7 @@ class Solution:
                 idx -= 1
         for i in range(idx+1, length):
             li[i] = 9
-        return ''.join([str(each) for each in li])
+        return int(''.join([str(each) for each in li]))
 
 
 
