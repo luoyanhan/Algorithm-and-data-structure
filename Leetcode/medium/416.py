@@ -39,11 +39,7 @@ class Solution:
 class Solution:
     def canPartition(self, nums):
         target, rest = divmod(sum(nums), 2)
-        length = len(nums)
-        if length <= 1 or rest:
-            return False
-        max_num = max(nums)
-        if max_num > target:
+        if rest:
             return False
         sums = {0}
         for num in nums:
