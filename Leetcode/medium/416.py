@@ -31,7 +31,7 @@ class Solution:
             return False
         dp = [False for j in range(target+1)]
         dp[0] = True
-        for i in range(1, length):
+        for i in range(length):
             for j in range(target, nums[i]-1, -1):
                 dp[j] = dp[j-nums[i]] | dp[j]
         return dp[target]
