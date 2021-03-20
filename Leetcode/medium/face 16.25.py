@@ -14,16 +14,16 @@ class LRUCache:
         self.tail = Node('tail', 0)
         self.head.next = self.tail
         self.tail.pre = self.head
-        self.mapper = dict()
         self.length = 0
+        self.mapper = dict()
 
 
     def get(self, key: int) -> int:
-        if key not in self.mapper:
-            return -1
-        node = self.mapper[key]
-        self.move_to_head(node)
-        return node.value
+        if key in self.mapper:
+            node = self.mapper[key]
+            self.move_to_head(node)
+            return node.value
+        return -1
 
 
     def put(self, key: int, value: int) -> None:
@@ -33,35 +33,30 @@ class LRUCache:
             self.move_to_head(node)
         else:
             node = Node(key, value)
-            if self.length < self.capacity:
-                self.length += 1
-            else:
-                self.del_tail()
-            self.add_to_head(node)
             self.mapper[key] = node
+            self.add_to_head(node)
+            self.length += 1
+            if self.length > self.capacity:
+                del self.mapper[self.tail.pre.key]
+                self.del_node(self.tail.pre)
+                self.length -= 1
 
+
+    def move_to_head(self, node):
+        self.del_node(node)
+        self.add_to_head(node)
 
     def del_node(self, node):
         node.pre.next = node.next
         node.next.pre = node.pre
-        node.next = None
         node.pre = None
-        return node
-
-    def del_tail(self):
-        if self.length > 0:
-            del self.mapper[self.tail.pre.key]
-            self.tail.pre = self.tail.pre.pre
-            self.tail.pre.next = self.tail
+        node.pre = None
 
     def add_to_head(self, node):
         node.next = self.head.next
+        node.pre = self.head
         node.next.pre = node
         self.head.next = node
-        node.pre = self.head
 
-    def move_to_head(self, node):
-        node = self.del_node(node)
-        self.add_to_head(node)
 
 
