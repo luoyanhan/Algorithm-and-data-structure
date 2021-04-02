@@ -1,9 +1,7 @@
 class Solution:
     def kClosest(self, points, k):
         def get_len(point):
-            if len(point) != 3:
-                point.append(point[0]**2 + point[1]**2)
-            return point[2]
+            return point[0]**2 + point[1]**2
 
         def partition(lo, hi):
             if lo == hi:
@@ -19,18 +17,17 @@ class Solution:
             return i
 
         def inner(k):
-            res = list()
             le, ri = 0, len(points)-1
-            while le <= ri and k > 0:
+            while le <= ri:
                 mid = partition(le, ri)
-                res.append((points[mid][0], points[mid][1]))
-                k -= 1
-                if mid < k:
+                if mid < k-1:
                     le = mid+1
-                elif mid > k:
+                elif mid > k-1:
                     ri = mid-1
-            return res
-
+                else:
+                    return points[:k]
         return inner(k)
 
+
+print(Solution().kClosest([[0,1],[1,0]], 2))
 
