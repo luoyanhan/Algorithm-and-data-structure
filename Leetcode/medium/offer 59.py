@@ -14,13 +14,9 @@ class MaxQueue:
 
     def push_back(self, value: int) -> None:
         self.enteties.append(value)
-        if not self.indices:
-            self.indices.append(value)
-        else:
-            if self.indices[-1] < value:
-                while self.indices and self.indices[-1] < value:
-                    self.indices.pop()
-                self.indices.append(value)
+        while self.indices and self.indices[-1] < value:
+            self.indices.pop()
+        self.indices.append(value)
 
 
 
