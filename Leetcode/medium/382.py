@@ -14,9 +14,9 @@ class Solution:
         idx = 0
         res = cur.val
         while cur:
-            idx += 1
-            num = random.randint(1, idx)
+            num = random.randint(0, idx)
             if num == idx:
                 res = cur.val
             cur = cur.next
+            idx += 1
         return res
