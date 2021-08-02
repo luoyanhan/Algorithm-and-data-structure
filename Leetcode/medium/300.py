@@ -22,3 +22,23 @@ class Solution:
         return max(dp)
 
 
+class Solution:
+    def lengthOfLIS(self, nums):
+        dp = list()
+        for num in nums:
+            if not dp or num > dp[-1]:
+                dp.append(num)
+            else:
+                left, right = 0, len(dp)-1
+                loc = right
+                while left <= right:
+                    mid = (left+right)//2
+                    if dp[mid] >= num:
+                        loc = mid
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+                dp[loc] = num
+        return len(dp)
+
+
