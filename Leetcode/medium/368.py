@@ -4,7 +4,7 @@ class Solution:
         length = len(nums)
         dp = [1 for _ in range(length)]
 
-        max_val = dp[0]
+        max_val = nums[0]
         max_size = 1
         for i in range(1, length):
             for j in range(i):
