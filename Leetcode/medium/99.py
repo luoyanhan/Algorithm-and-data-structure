@@ -30,3 +30,27 @@ class Solution:
         else:
             node1, node2 = mid_list[loc1], mid_list[loc2]
         node1.val, node2.val = node2.val, node1.val
+
+
+class Solution:
+    def recoverTree(self, root):
+        stack = list()
+        node = root
+        pre_node = None
+        node1 = None
+        node2 = None
+        while node or stack:
+            if node:
+                stack.append(node)
+                node = node.left
+            else:
+                node = stack.pop()
+                if pre_node and pre_node.val > node.val:
+                    if node2 is None:
+                        node1 = pre_node
+                        node2 = node
+                    else:
+                        node2 = node
+                pre_node = node
+                node = node.right
+        node1.val, node2.val = node2.val, node1.val
