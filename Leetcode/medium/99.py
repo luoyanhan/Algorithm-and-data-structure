@@ -54,3 +54,39 @@ class Solution:
                 pre_node = node
                 node = node.right
         node1.val, node2.val = node2.val, node1.val
+
+
+class Solution:
+    def recoverTree(self, root):
+        node = root
+        node1 = None
+        node2 = None
+        pred = None
+        while node:
+            if node.left:
+                prenode = node.left
+                while prenode.right and prenode.right != node:
+                    prenode = prenode.right
+                if not prenode.right:
+                    prenode.right = node
+                    node = node.left
+                else:
+                    if pred and pred.val > node.val:
+                        if node2 is None:
+                            node1 = pred
+                            node2 = node
+                        else:
+                            node2 = node
+                    pred = node
+                    node = node.right
+                    prenode.right = None
+            else:
+                if pred and pred.val > node.val:
+                    if node2 is None:
+                        node1 = pred
+                        node2 = node
+                    else:
+                        node2 = node
+                pred = node
+                node = node.right
+        node1.val, node2.val = node2.val, node1.val
