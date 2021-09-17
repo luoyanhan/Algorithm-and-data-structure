@@ -59,9 +59,9 @@ class Solution:
 class Solution:
     def recoverTree(self, root):
         node = root
+        pred = None
         node1 = None
         node2 = None
-        pred = None
         while node:
             if node.left:
                 prenode = node.left
@@ -73,8 +73,7 @@ class Solution:
                 else:
                     if pred and pred.val > node.val:
                         if node2 is None:
-                            node1 = pred
-                            node2 = node
+                            node1, node2 = pred, node
                         else:
                             node2 = node
                     pred = node
@@ -83,8 +82,7 @@ class Solution:
             else:
                 if pred and pred.val > node.val:
                     if node2 is None:
-                        node1 = pred
-                        node2 = node
+                        node1, node2 = pred, node
                     else:
                         node2 = node
                 pred = node
