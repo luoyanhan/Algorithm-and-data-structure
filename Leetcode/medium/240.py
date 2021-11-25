@@ -78,6 +78,36 @@ class Solution:
 
 
 
+class Solution:
+    def searchMatrix(self, matrix, target):
+        m, n = len(matrix), len(matrix[0])
+        for i in range(m):
+            if matrix[i][0] <= target <= matrix[i][n-1]:
+                for each in matrix[i]:
+                    if each == target:
+                        return True
+        return False
+
+
+class Solution:
+    def searchMatrix(self, matrix, target):
+        def binary(li, left, right, target):
+            while left <= right:
+                mid = (left+right)//2
+                if li[mid] == target:
+                    return True
+                elif li[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return False
+        for each in matrix:
+            if binary(each, 0, len(each)-1, target):
+                return True
+        return False
+
+
+
 
 matrix = [
   [1,   4,  7, 11, 15],
@@ -86,4 +116,12 @@ matrix = [
   [10, 13, 14, 17, 24],
   [18, 21, 23, 26, 30]
 ]
+
 print(Solution().searchMatrix(matrix, 5))
+
+matrix = [[1,2,3,4,5],
+          [6,7,8,9,10],
+          [11,12,13,14,15],
+          [16,17,18,19,20],
+          [21,22,23,24,25]]
+print(Solution().searchMatrix(matrix, 19))
