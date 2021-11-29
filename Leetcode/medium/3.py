@@ -12,3 +12,27 @@ class Solution:
                 max_length = len(result)
         return max_length
 
+
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        length = len(s)
+        if not length:
+            return 0
+        left, right = 0, 0
+        max_length = 0
+        cur_length = 0
+        se = set()
+        while right < length:
+            if s[right] not in se:
+                cur_length += 1
+                max_length = max(max_length, cur_length)
+                se.add(s[right])
+                right += 1
+            else:
+                while s[right] in se:
+                    se.remove(s[left])
+                    left += 1
+                    cur_length -= 1
+        return max_length
+
+
