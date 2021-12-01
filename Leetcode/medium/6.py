@@ -44,7 +44,29 @@ class Solution:
         return (x, y)
 
 
+class Solution:
+    def convert(self, s, numRows):
+        if numRows == 1:
+            return s
+        rows = ['' for _ in range(numRows)]
+        row_idx = 0
+        direction = -1
+        for word in s:
+            rows[row_idx] += word
+            if direction < 0:
+                row_idx += 1
+                if row_idx >= numRows:
+                    direction = 1
+                    row_idx -= 2
+            else:
+                row_idx -= 1
+                if row_idx < 0:
+                    direction = -1
+                    row_idx += 2
+        return ''.join(rows)
+
+
 
 if __name__ == "__main__":
     s = Solution()
-    s.convert('LEETCODEISHIRING', 3)
+    print(s.convert('A', 1))
